@@ -1107,7 +1107,7 @@ $(function () {
     assert.ok(typeof offset.fn === 'undefined')
   })
 
-  QUnit.test('should desactivate sanitizer', function (assert) {
+  QUnit.test('should disable sanitizer', function (assert) {
     assert.expect(1)
 
     var $trigger = $('<a href="#" rel="tooltip" data-trigger="click" title="Another tooltip"/>')
@@ -1120,7 +1120,7 @@ $(function () {
     assert.strictEqual(tooltip.config.sanitizeTemplate, false)
   })
 
-  QUnit.test('should sanitize template by removing tags not allowed', function (assert) {
+  QUnit.test('should sanitize template by removing disallowed tags', function (assert) {
     assert.expect(1)
 
     var $trigger = $('<a href="#" rel="tooltip" data-trigger="click" title="Another tooltip"/>')

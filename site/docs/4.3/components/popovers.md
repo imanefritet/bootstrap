@@ -254,20 +254,20 @@ Options can be passed via data attributes or JavaScript. For data attributes, ap
       <td>sanitizeTemplate</td>
       <td>boolean</td>
       <td>true</td>
-      <td>Active or desactive the built in sanitizer. If activated the <code>'template'</code> option will be sanitized.
-      You can desactivate this option if you want to sanitize your template with a dedicated library.</td>
+      <td>Enable or disable the built-in sanitizer. If activated the <code>'template'</code> option will be sanitized.
+      You can disable this option if you want to sanitize your template with a dedicated library.</td>
     </tr>
     <tr>
       <td>forbiddenTags</td>
       <td>array</td>
-      <td>[ 'script', 'iframe' ]</td>
-      <td>Pass a list of forbidden tags which will be removed by our sanitizer.</td>
+      <td>['script', 'iframe']</td>
+      <td>Pass a list of disallowed tags which will be removed by our sanitizer.</td>
     </tr>
     <tr>
       <td>allowedAttributes</td>
       <td>array</td>
-      <td>[ 'id', 'class', 'style' ]</td>
-      <td>Pass a list of allowed attributes which wont be removed by our sanitizer.</td>
+      <td>['id', 'class', 'style']</td>
+      <td>Pass a list of allowed attributes which won't be removed by our sanitizer.</td>
     </tr>
   </tbody>
 </table>

@@ -1106,4 +1106,54 @@ $(function () {
     assert.strictEqual(offset.offset, myOffset)
     assert.ok(typeof offset.fn === 'undefined')
   })
+
+  QUnit.test('should desactivate sanitizer', function (assert) {
+    assert.expect(1)
+
+    var $trigger = $('<a href="#" rel="tooltip" data-trigger="click" title="Another tooltip"/>')
+      .appendTo('#qunit-fixture')
+      .bootstrapTooltip({
+        sanitizeTemplate: false
+      })
+
+    var tooltip = $trigger.data('bs.tooltip')
+    assert.strictEqual(tooltip.config.sanitizeTemplate, false)
+  })
+
+  QUnit.test('should sanitize template by removing tags not allowed', function (assert) {
+    assert.expect(1)
+
+    var $trigger = $('<a href="#" rel="tooltip" data-trigger="click" title="Another tooltip"/>')
+      .appendTo('#qunit-fixture')
+      .bootstrapTooltip({
+        template: [
+          '<div>',
+          '  <script>console.log("oups script inserted")</script>',
+          '  <span>Some contents</span>',
+          '</div>'
+        ].join('')
+      })
+
+    var tooltip = $trigger.data('bs.tooltip')
+    assert.strictEqual(tooltip.config.template.indexOf('script'), -1)
+  })
+
+  QUnit.test('should sanitize template by removing tags with XSS', function (assert) {
+    assert.expect(1)
+
+    var $trigger = $('<a href="#" rel="tooltip" data-trigger="click" title="Another tooltip"/>')
+      .appendTo('#qunit-fixture')
+      .bootstrapTooltip({
+        template: [
+          '<div>',
+          '  <a href="javascript:alert(7)">Click me</a>',
+          '  <span>Some contents</span>',
+          '</div>'
+        ].join(''),
+        allowedAttributes: ['href']
+      })
+
+    var tooltip = $trigger.data('bs.tooltip')
+    assert.strictEqual(tooltip.config.template.indexOf('script'), -1)
+  })
 })

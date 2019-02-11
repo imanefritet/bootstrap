@@ -8,6 +8,9 @@
 import $ from 'jquery'
 import Popper from 'popper.js'
 import Util from './util'
+import {
+  sanitizeHtml
+} from './tools/sanitizer'
 
 /**
  * ------------------------------------------------------------------------
@@ -35,7 +38,10 @@ const DefaultType = {
   offset            : '(number|string|function)',
   container         : '(string|element|boolean)',
   fallbackPlacement : '(string|array)',
-  boundary          : '(string|element)'
+  boundary          : '(string|element)',
+  sanitizeTemplate  : 'boolean',
+  forbiddenTags     : 'array',
+  allowedAttributes : 'array'
 }
 
 const AttachmentMap = {
@@ -60,7 +66,10 @@ const Default = {
   offset            : 0,
   container         : false,
   fallbackPlacement : 'flip',
-  boundary          : 'scrollParent'
+  boundary          : 'scrollParent',
+  sanitizeTemplate  : true,
+  forbiddenTags     : ['script', 'iframe'],
+  allowedAttributes : ['id', 'class', 'style']
 }
 
 const HoverState = {
@@ -662,6 +671,10 @@ class Tooltip {
       config,
       this.constructor.DefaultType
     )
+
+    if (config.sanitizeTemplate) {
+      config.template = sanitizeHtml(config.template, config.forbiddenTags, config.allowedAttributes)
+    }
 
     return config
   }
